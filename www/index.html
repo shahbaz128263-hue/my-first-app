@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TradeGoal Pro — Project & Trading Manager</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4f46e5">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TradeGoal">
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#6b7280;--line:#e5e9f1;--blue:#4f46e5;--cyan:#0891b2;--green:#16a34a;--red:#dc2626;--amber:#d97706;--shadow:0 10px 30px rgba(31,41,55,.08)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#f7f8ff,#eefbff);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text)}
+button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1220px;margin:auto;padding:16px 14px 80px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.brand{font-size:22px;font-weight:900}.brand span{color:var(--blue)}.top-actions{display:flex;gap:8px}.btn{padding:10px 13px;border-radius:11px;background:#fff;border:1px solid var(--line);font-weight:800;color:var(--text)}.btn.primary{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:0}.btn.danger{color:var(--red)}.tabs{display:flex;gap:7px;background:#fff;border:1px solid var(--line);padding:6px;border-radius:15px;box-shadow:var(--shadow);margin-bottom:16px}.tab{flex:1;border:0;background:transparent;color:var(--muted);font-weight:900;padding:11px;border-radius:10px}.tab.active{background:#eef0ff;color:var(--blue)}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.label{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em}.value{font-size:23px;font-weight:900;margin-top:5px}.positive{color:var(--green)}.negative{color:var(--red)}.warning{color:var(--amber)}.small{font-size:12px;color:var(--muted)}.section{margin-top:20px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section-head h2{font-size:18px;margin:0}.project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.project-card{cursor:pointer;transition:.18s}.project-card:hover{transform:translateY(-2px);box-shadow:0 14px 35px rgba(31,41,55,.12)}.project-card h3{margin:4px 0 12px}.project-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mini{background:#f8fafc;border-radius:10px;padding:9px}.mini b{display:block;margin-top:3px}.hero{display:grid;grid-template-columns:1.5fr .8fr;gap:13px}.hero-main{background:linear-gradient(135deg,#111827,#312e81);color:#fff;border-radius:21px;padding:21px}.hero-main .label{color:#c7d2fe}.hero-title{font-size:28px;font-weight:900;margin:5px 0 14px}.progress{height:10px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,#22d3ee,#a78bfa);border-radius:99px}.hero-foot{display:flex;justify-content:space-between;margin-top:9px;color:#dbeafe;font-size:12px}.ring{text-align:center;display:flex;align-items:center;justify-content:center}.form{max-width:850px;margin:auto}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:900}.field input,.field select{padding:12px;border:1px solid var(--line);border-radius:11px;outline:0;background:#fff}.currency{display:grid;grid-template-columns:100px 1fr;gap:8px}.days{display:flex;flex-wrap:wrap;gap:6px}.day{padding:7px 9px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:12px;font-weight:800}.day.off{background:#111827;color:#fff}.notice{padding:11px;border-radius:11px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;font-size:12px;line-height:1.5;margin:12px 0}.months{display:grid;gap:10px}.month{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}.month-head{display:flex;justify-content:space-between;align-items:center;padding:13px 15px;font-weight:900}.month-head button{background:transparent;color:var(--blue);font-weight:900;border:0}.month-body{display:none;overflow-x:auto;border-top:1px solid var(--line)}.month.open .month-body{display:block}.table{width:100%;border-collapse:collapse;min-width:900px}.table th,.table td{padding:9px 11px;border-bottom:1px solid #edf0f5;text-align:left;font-size:12px}.table th{color:var(--muted);background:#fafbfe}.date-cell{font-weight:700}.active-date .date-cell{font-weight:950;color:var(--blue);background:#eef2ff}.active-date td{background:#f7f8ff}.achieved-date .date-cell:before{content:'✓';display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#dcfce7;color:#15803d;margin-right:6px;font-weight:950}.pnl-pill{font-weight:900;padding:4px 7px;border-radius:8px;display:inline-block}.pnl-profit{background:#dcfce7;color:#166534}.pnl-loss{background:#fee2e2;color:#991b1b}.status{padding:4px 8px;border-radius:99px;font-weight:900;font-size:10px}.ahead{background:#dcfce7;color:#166534}.behind{background:#fee2e2;color:#991b1b}.ontarget{background:#e0e7ff;color:#3730a3}.future{background:#f3f4f6;color:#6b7280}.entry-list{display:flex;gap:5px;flex-wrap:wrap}.entry{display:inline-flex;align-items:center;gap:5px}.x{border:0;background:transparent;color:inherit;font-weight:900;padding:0}.modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:20}.modal.show{display:flex}.modal-box{width:min(520px,100%);background:#fff;border-radius:21px;padding:18px}.modal-head{display:flex;justify-content:space-between}.close{border:0;background:#f1f5f9;border-radius:50%;width:33px;height:33px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.trade-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line)}.empty{text-align:center;padding:35px;color:var(--muted)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 16px;border-radius:99px;display:none;z-index:30;font-size:12px}
+@media(max-width:900px){.project-grid{grid-template-columns:1fr 1fr}.grid,.metrics{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}}
+@media(max-width:560px){.app{padding:10px 10px 70px}.project-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.grid,.metrics{grid-template-columns:1fr 1fr}.value{font-size:18px}.hero-title{font-size:23px}.top-actions .btn{padding:8px}.tabs{position:sticky;top:7px;z-index:10}}
+
+/* ===== MOBILE-FIRST RESPONSIVE OVERRIDE ===== */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+body{min-width:0}
+.app{width:100%;max-width:1220px;margin:0 auto;padding:10px 10px calc(84px + env(safe-area-inset-bottom));overflow-x:hidden}
+.top,.tabs,.card,.project-card,.hero-main,.month,.modal-box{max-width:100%;min-width:0}
+input,select,button{max-width:100%}
+.field input,.field select{width:100%;min-width:0}
+.project-grid,.grid,.metrics,.hero,.form-grid{width:100%;min-width:0}
+
+@media (max-width:700px){
+  .top{padding:2px 2px 8px}
+  .brand{font-size:20px}
+  .top-actions{flex-wrap:wrap;justify-content:flex-end}
+  .top-actions .btn{padding:8px 10px;font-size:12px}
+  .tabs{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;width:auto;min-width:max-content;padding:10px 13px;font-size:12px}
+  .project-grid{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .card{padding:14px;border-radius:16px}
+  .value{font-size:18px;word-break:break-word}
+  .hero-main{padding:17px;border-radius:18px}
+  .hero-title{font-size:22px;line-height:1.2;word-break:break-word}
+  .modal{align-items:flex-end;padding:0;background:rgba(15,23,42,.58)}
+  .modal-box{
+    width:100vw;max-width:100vw;max-height:92dvh;overflow-y:auto;
+    -webkit-overflow-scrolling:touch;border-radius:22px 22px 0 0;
+    padding:18px 14px calc(18px + env(safe-area-inset-bottom));
+  }
+  .modal-box .form-grid{gap:10px}
+  .modal-box .field{min-width:0}
+  .modal-box .field input,.modal-box .field select{
+    width:100%;min-height:50px;font-size:16px;padding:12px 13px;
+  }
+  .currency{grid-template-columns:1fr}
+  .days{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .day{width:100%;padding:9px 5px;text-align:center}
+  .section-head{gap:8px;align-items:center}
+  .section-head h2{font-size:16px}
+  .section-head .btn{white-space:nowrap}
+  .month-body{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table{min-width:850px}
+}
+@media (max-width:390px){
+  .app{padding-left:8px;padding-right:8px}
+  .grid,.metrics{gap:8px}
+  .card{padding:12px}
+  .label{font-size:10px}.value{font-size:16px}
+  .hero-title{font-size:20px}.day{font-size:11px}
+}
+
+
+/* ===== ADVANCED TRADING JOURNAL ===== */
+.j-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.j-title{font-size:22px;font-weight:900}.j-actions{display:flex;gap:7px;flex-wrap:wrap}
+.j-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.j-filters input,.j-filters select{width:100%;min-width:0;padding:10px 11px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.j-filter-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.cal-card{margin-top:12px;overflow:hidden}.cal-head{display:flex;justify-content:space-between;align-items:center;padding:14px 15px;border-bottom:1px solid var(--line)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;padding:10px}.cal-dow{text-align:center;color:var(--muted);font-size:11px;font-weight:900;padding:5px}
+.cal-day{min-height:68px;border:1px solid #edf0f5;border-radius:10px;padding:7px;background:#fff;cursor:pointer}
+.cal-day.today{outline:2px solid #c7d2fe}.cal-day.profit{background:#ecfdf5;border-color:#bbf7d0}.cal-day.loss{background:#fff1f2;border-color:#fecdd3}
+.cal-num{font-weight:900;font-size:12px}.cal-pnl{font-size:10px;font-weight:900;margin-top:8px}
+.j-summary{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:12px}
+.journal-list{display:grid;gap:10px;margin-top:12px}.j-entry{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff}
+.j-entry-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.j-symbol{font-size:17px;font-weight:950}
+.j-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.tag{font-size:10px;font-weight:900;padding:5px 7px;border-radius:8px;background:#f1f5f9;color:#475569}
+.j-details{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}
+.j-detail{background:#f8fafc;border-radius:9px;padding:8px}.j-detail span{display:block;font-size:10px;color:var(--muted)}.j-detail b{display:block;margin-top:3px;font-size:12px}
+.j-notes{margin-top:10px;padding:10px;border-left:3px solid #c7d2fe;background:#f8fafc;font-size:12px;line-height:1.45}.j-entry-actions{display:flex;gap:6px;margin-top:10px}
+@media(max-width:800px){.j-summary{grid-template-columns:repeat(3,minmax(0,1fr))}.j-details{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.j-head{align-items:flex-start}.j-title{font-size:19px}.j-actions .btn{font-size:11px;padding:8px}.j-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.j-filter-row{grid-template-columns:repeat(2,minmax(0,1fr))}.j-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.j-details{grid-template-columns:repeat(2,minmax(0,1fr))}.cal-grid{gap:3px;padding:7px}.cal-day{min-height:56px;padding:5px}.cal-pnl{font-size:9px}}
+
+/* ===== TARGET-ACHIEVEMENT COLUMNS ===== */
+.achieve-box{display:flex;flex-direction:column;gap:3px;min-width:145px}
+.achieve-date{font-weight:950;color:#4f46e5}
+.remaining-chip{display:inline-block;width:max-content;padding:3px 7px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:10px;font-weight:900}
+.achieved-now{background:#ecfdf5;color:#15803d;border-radius:8px;padding:5px 7px;font-weight:950;font-size:11px}
+@media(max-width:700px){.achieve-box{min-width:125px}.remaining-chip{font-size:9px}}
+
+
+/* ===== MONTHLY TABLE VISIBILITY FIX ===== */
+.months{display:grid;gap:10px;width:100%}
+.month{width:100%;min-height:58px}
+.month-body{width:100%;max-width:100%}
+.month.open .month-body{display:block;min-height:80px}
+@media(max-width:700px){
+  .month-head{min-height:58px}
+  .month-body{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+  .month-body table{min-width:980px}
+}
+
+
+.target-legend{margin:8px 0 0;color:var(--muted);font-size:11px;line-height:1.4}
+
+.single-pwa-install{
+  position:sticky;top:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:9px 12px;margin:0 0 8px;border-radius:0 0 14px 14px;
+  background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;box-shadow:0 5px 18px rgba(0,0,0,.12)
+}
+.single-pwa-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.single-pwa-text b{font-size:13px}.single-pwa-text span{font-size:10px;opacity:.9}
+.single-pwa-install button{border:0;border-radius:9px;background:#fff;color:#4f46e5;font-weight:900;padding:8px 13px;white-space:nowrap}
+@media(max-width:420px){.single-pwa-install{padding:8px}.single-pwa-text b{font-size:12px}.single-pwa-text span{font-size:9px}}
+
+</style>
+</head>
+<body>
+
+<div id="singlePWAInstall" class="single-pwa-install" aria-live="polite">
+  <div class="single-pwa-text">
+    <b>📲 Install TradeGoal</b>
+    <span id="singlePWAStatus">Add this app to your home screen</span>
+  </div>
+  <button type="button" onclick="installSingleFilePWA()">Install</button>
+</div>
+
+<div class="app">
+  <div class="top">
+    <div class="brand">Trade<span>Goal</span></div>
+    <div class="top-actions" id="topActions"></div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="tProjects" onclick="showTab('projects')">🗂️ Project Management</button>
+    <button class="tab" id="tDash" onclick="showTab('dashboard')">📊 Project Dashboard</button>
+    <button class="tab" id="tTrade" onclick="showTab('trading')">📈 Trading Journal</button>
+  </div>
+
+  <section id="projectsView">
+    <div class="section-head"><h2>My Projects</h2><button class="btn primary" onclick="openCreate()">＋ Create Project</button></div>
+    <div id="projectsList"></div>
+  </section>
+
+  <section id="dashboardView" style="display:none">
+    <div id="dash"></div>
+  </section>
+
+  <section id="tradingView" style="display:none">
+    <div id="trading"></div>
+  </section>
+</div>
+
+<div class="modal" id="projectModal">
+  <div class="modal-box">
+    <div class="modal-head"><h3 id="projectModalTitle" style="margin:0">Create Project</h3><button class="close" onclick="closeCreate()">×</button></div>
+    <div class="form-grid" style="margin-top:14px">
+      <div class="field full"><label>Project name</label><input id="fName" placeholder="My Trading Goal"></div>
+      <div class="field"><label>Currency</label><select id="fCurrency"><option value="₹">₹ — Rupee (INR)</option><option value="$">$ — Dollar (USD)</option></select></div>
+      <div class="field"><label>Available amount</label><input id="fStart" type="number" min="0.01"></div>
+      <div class="field"><label>Target amount</label><input id="fTarget" type="number" min="0.01"></div>
+      <div class="field"><label>Daily target (%)</label><input id="fRate" type="number" step="0.1" min="0.01" value="5"></div>
+      <div class="field"><label>Daily capital use (%)</label><input id="fUse" type="number" step="0.1" min="0.1" max="100" value="20"></div>
+      <div class="field full"><label>Start date</label><input id="fDate" type="date"></div>
+      <div class="field full"><label>Exclude these weekdays</label><div class="days" id="fDays"></div></div>
+    </div>
+    <div class="notice">Daily target is a planning assumption, not a guaranteed trading return. The dashboard never increases leverage automatically.</div>
+    <button class="btn primary" style="width:100%;padding:13px;margin-top:5px" onclick="saveProject()">Save Project</button>
+  </div>
+</div>
+
+<div class="modal" id="plModal">
+  <div class="modal-box">
+    <div class="modal-head"><h3 style="margin:0">Add P/L</h3><button class="close" onclick="closePL()">×</button></div>
+    <div class="small" id="plDate"></div>
+    <div class="form-grid" style="margin-top:14px">
+      <div class="field"><label>Type</label><select id="plType"><option value="profit">Profit</option><option value="loss">Loss</option></select></div>
+      <div class="field"><label>Amount</label><input id="plAmount" type="number" min="0.01" step="0.01"></div>
+      <div class="field full"><label>Note</label><input id="plNote" placeholder="Setup / reason / trade"></div>
+    </div>
+    <button class="btn primary" style="width:100%;padding:13px;margin-top:14px" onclick="savePL()">Save P/L</button>
+  </div>
+</div>
+
+<div class="modal" id="journalModal">
+  <div class="modal-box">
+    <div class="modal-head"><h3 id="journalTitle" style="margin:0">Trade Journal Entry</h3><button class="close" onclick="closeJournal()">×</button></div>
+    <div class="small" style="margin-top:5px">Record complete trade details for later review.</div>
+    <div class="form-grid" style="margin-top:14px">
+      <div class="field"><label>Date</label><input id="jDate" type="date"></div>
+      <div class="field"><label>Symbol</label><input id="jSymbol" placeholder="NIFTY 01 Sep 23950 CE"></div>
+      <div class="field"><label>Direction</label><select id="jDirection"><option value="Long">Long / Buy</option><option value="Short">Short / Sell</option></select></div>
+      <div class="field"><label>Quantity</label><input id="jQty" type="number" min="1" step="1" placeholder="130"></div>
+      <div class="field"><label>Buy / Entry price</label><input id="jBuy" type="number" min="0" step="0.01" placeholder="64.55"></div>
+      <div class="field"><label>Sell / Exit price</label><input id="jSell" type="number" min="0" step="0.01" placeholder="60.73"></div>
+      <div class="field"><label>Brokerage</label><input id="jBrokerage" type="number" min="0" step="0.01" value="0"></div>
+      <div class="field"><label>Charges / taxes</label><input id="jCharges" type="number" min="0" step="0.01" value="0"></div>
+      <div class="field"><label>Setup</label><input id="jSetup" placeholder="VWAP breakout / ORB / support"></div>
+      <div class="field"><label>Entry reason</label><input id="jReason" placeholder="Why did you enter?"></div>
+      <div class="field full"><label>Mistake / lesson</label><input id="jMistake" placeholder="Late entry, oversized position, ignored SL..."></div>
+      <div class="field full"><label>Notes</label><input id="jNotes" placeholder="Market context, emotions, execution notes..."></div>
+    </div>
+    <div class="notice">Gross P/L = price difference × quantity. Net P/L = Gross P/L − brokerage − charges. Short trades profit when exit is below entry.</div>
+    <button class="btn primary" style="width:100%;padding:13px" onclick="saveJournal()">Save Journal Entry</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY='tradeGoalPro_v2';
+let data=JSON.parse(localStorage.getItem(KEY)||'{"projects":[],"active":null}');
+let editId=null,selectedDate=null;
+const $=id=>document.getElementById(id);
+const weekdays=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function today(){return new Date().toISOString().slice(0,10)}
+function dObj(s){return new Date(s+'T00:00:00')}
+function iso(d){return d.toISOString().slice(0,10)}
+function money(n,p){return (p.currency||'₹')+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2})}
+function pct(n){return Number(n||0).toFixed(1)+'%'}
+function addDays(s,n){let d=dObj(s);d.setDate(d.getDate()+n);return iso(d)}
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function active(){return data.projects.find(p=>p.id===data.active)}
+function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',1800)}
+function daysButtons(target,selected=[]){target.innerHTML=weekdays.map((x,i)=>`<button type="button" class="day ${selected.includes(i)?'off':''}" data-day="${i}" onclick="this.classList.toggle('off')">${x}</button>`).join('')}
+function showTab(tab){
+  ['projects','dashboard','trading'].forEach(x=>{$(x+'View').style.display=x===tab?'block':'none';});
+  $('tProjects').classList.toggle('active',tab==='projects');$('tDash').classList.toggle('active',tab==='dashboard');$('tTrade').classList.toggle('active',tab==='trading');
+  if(tab==='projects')renderProjects(); if(tab==='dashboard')renderDashboard(); if(tab==='trading')renderTrading();
+}
+function openCreate(p=null){
+  editId=p?.id||null;$('projectModalTitle').textContent=p?'Edit Project':'Create Project';
+  $('fName').value=p?.name||'';$('fCurrency').value=p?.currency||'₹';$('fStart').value=p?.start||'';$('fTarget').value=p?.target||'';$('fRate').value=p?.rate??5;$('fUse').value=p?.use??20;$('fDate').value=p?.startDate||today();
+  daysButtons($('fDays'),p?.excluded||[0,6]);$('projectModal').classList.add('show')
+}
+function closeCreate(){$('projectModal').classList.remove('show')}
+function saveProject(){
+  const p={id:editId||crypto.randomUUID(),name:$('fName').value.trim()||'Untitled Project',currency:$('fCurrency').value,start:+$('fStart').value,target:+$('fTarget').value,rate:+$('fRate').value,use:+$('fUse').value,startDate:$('fDate').value,excluded:[...$('fDays').querySelectorAll('.off')].map(x=>+x.dataset.day),entries:editId?active()?.entries||[]:[]};
+  if(!p.start||!p.target||p.start<=0||p.target<=0||p.rate<=0||!p.startDate){alert('Please fill valid values.');return}
+  if(editId){const i=data.projects.findIndex(x=>x.id===editId);if(i>=0)data.projects[i]=p}else data.projects.push(p);
+  data.active=p.id;save();closeCreate();showTab('dashboard');toast(editId?'Project updated':'Project created')
+}
+function deleteProject(id){
+  if(!confirm('Delete this project and all its journal entries?'))return;
+  data.projects=data.projects.filter(p=>p.id!==id);if(data.active===id)data.active=data.projects[0]?.id||null;save();showTab('projects');toast('Project deleted')
+}
+function selectProject(id){data.active=id;save();showTab('dashboard')}
+function newProject(){openCreate()}
+
+function pnlUntil(p,date){
+  return p.entries.filter(e=>e.date<=date).reduce((s,e)=>s+(e.type==='profit'?+e.amount:-e.amount),0)
+}
+function actual(p,date){return Math.max(0,p.start+pnlUntil(p,date))}
+function entriesDate(p,date){return p.entries.filter(e=>e.date===date).sort((a,b)=>a.ts-b.ts)}
+
+function buildSchedule(p){
+  const out=[]; let base=p.start, d=dObj(p.startDate), guard=0, now=today();
+  while(base<p.target && guard<5000){
+    const ds=iso(d);
+    if(!p.excluded.includes(d.getDay())){
+      const target=Math.min(p.target,base*(1+p.rate/100));
+      const entries=entriesDate(p,ds);
+      // Before any P/L is recorded, keep the planned compounding path.
+      // Once P/L is recorded for a day, its actual EOD capital becomes
+      // the new base for all following days.
+      const endCapital=(ds<=now && entries.length)?actual(p,ds):target;
+      out.push({date:ds,target,base,actual:endCapital,hasEntries:entries.length>0});
+      base=endCapital;
+      if(base>=p.target) break;
+    }
+    d.setDate(d.getDate()+1); guard++;
+  }
+  return out;
+}
+function scheduleTarget(p,date){
+  const row=buildSchedule(p).find(x=>x.date===date);
+  return row?row.target:p.target;
+}
+function dateTargetFromCurrent(p,date){return scheduleTarget(p,date)}
+function allCalendarDays(p){
+  const s=buildSchedule(p);
+  if(!s.length)return [p.startDate];
+  const last=dObj(s[s.length-1].date),arr=[],end=new Date(last);
+  end.setDate(end.getDate()+14);
+  for(let d=dObj(p.startDate);d<=end;d.setDate(d.getDate()+1))arr.push(iso(d));
+  return arr;
+}
+function firstCompletion(p){
+  const s=buildSchedule(p);
+  return s.length?s[s.length-1].date:null;
+}
+function statusFor(p,date){
+  const now=today(),ac=actual(p,date),target=dateTargetFromCurrent(p,date);
+  if(date>now)return ['Future','future'];
+  if(ac>=target-1e-9)return ['Achieved','ahead'];
+  return ['Behind','behind'];
+}
+function isTradingDay(p,date){return !p.excluded.includes(dObj(date).getDay())}
+
+function renderProjects(){
+  $('topActions').innerHTML='';
+  if(!data.projects.length){$('projectsList').innerHTML=`<div class="card empty"><h3>No projects yet</h3><p>Create your first trading goal.</p><button class="btn primary" onclick="openCreate()">Create Project</button></div>`;return}
+  $('projectsList').innerHTML=`<div class="project-grid">${data.projects.map(p=>{
+    const end=firstCompletion(p), ac=actual(p,today()), progress=Math.min(100,Math.max(0,(ac-p.start)/(p.target-p.start)*100));
+    return `<div class="card project-card" onclick="selectProject('${p.id}')"><div class="label">Trading project</div><h3>${esc(p.name)}</h3><div class="project-meta"><div class="mini"><span class="small">Capital</span><b>${money(p.start,p)}</b></div><div class="mini"><span class="small">Target</span><b>${money(p.target,p)}</b></div><div class="mini"><span class="small">Daily target</span><b>${pct(p.rate)}</b></div><div class="mini"><span class="small">Completion</span><b>${end||'—'}</b></div></div><div style="margin-top:12px"><div class="small">Progress ${pct(progress)}</div><div class="progress" style="background:#edf0f5;margin-top:5px"><i style="width:${progress}%;background:linear-gradient(90deg,#06b6d4,#4f46e5)"></i></div></div><div style="display:flex;gap:7px;margin-top:13px"><button class="btn" onclick="event.stopPropagation();openCreate(data.projects.find(x=>x.id==='${p.id}'))">Edit</button><button class="btn danger" onclick="event.stopPropagation();deleteProject('${p.id}')">Delete</button></div></div>`
+  }).join('')}</div>`
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+
+function renderDashboard(){
+  const p=active();if(!p){showTab('projects');return}
+  $('topActions').innerHTML=`<button class="btn" onclick="openCreate(active())">✏️ Edit</button><button class="btn" onclick="showTab('projects')">← Projects</button>`;
+  const completion=firstCompletion(p),now=today(),ac=actual(p,now),progress=Math.min(100,Math.max(0,(ac-p.start)/(p.target-p.start)*100));
+  const schedule=buildSchedule(p);
+  const passed=schedule.filter(x=>x.date<now).length;
+  const future=schedule.filter(x=>x.date>now && x.target<p.target).length;
+  const todayRow=schedule.find(x=>x.date===now);
+  const nextRow=schedule.find(x=>x.date>now);
+  const targetRow=todayRow||nextRow;
+  const todayTarget=targetRow?targetRow.target:Math.min(p.target,ac*(1+p.rate/100));
+  const todayPnl=pnlUntil(p,now)-pnlUntil(p,addDays(now,-1));
+  const canAddToday=!!todayRow;
+  const previousTarget=p.start; const diff=ac-todayTarget; const accuracy=(todayTarget<=p.start)?100:((ac-p.start)/(todayTarget-p.start)*100);
+  const end=completion||'—';
+  let circumference=314, dash=Math.min(100,progress)/100*circumference;
+  $('dash').innerHTML=`<div class="hero"><div class="hero-main"><div class="label">Active project</div><div class="hero-title">${esc(p.name)}</div><div class="small" style="color:#dbeafe">Goal progress</div><div class="progress" style="margin-top:7px"><i style="width:${progress}%"></i></div><div class="hero-foot"><span>${pct(progress)}</span><span>${p.startDate} → ${end}</span></div></div><div class="card ring"><div><svg width="145" height="145" viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="#edf0f5" stroke-width="10"/><circle cx="60" cy="60" r="50" fill="none" stroke="#4f46e5" stroke-width="10" stroke-linecap="round" stroke-dasharray="${dash} ${circumference}" transform="rotate(-90 60 60)"/><text x="60" y="66" text-anchor="middle" font-size="20" font-weight="800">${Math.round(progress)}%</text></svg><div class="small">Completion</div></div></div></div>
+  <div class="grid section">${[
+    ['Current capital',money(ac,p),ac>=p.start?'positive':'negative'],['Remaining amount',money(Math.max(0,p.target-ac),p),'warning'],['Remaining trading days',future,''],['Passed trading days',passed,'positive'],['Today target',money(todayTarget,p),''],['Today P/L',money(todayPnl,p),todayPnl>=0?'positive':'negative'],['Ahead / Behind',diff>=0?money(diff,p)+' ahead':money(Math.abs(diff),p)+' behind',diff>=0?'positive':'negative'],['Accuracy',pct(Math.max(0,accuracy)),accuracy>=100?'positive':accuracy>=80?'warning':'negative']
+  ].map(x=>`<div class="card"><div class="label">${x[0]}</div><div class="value ${x[2]}">${x[1]}</div></div>`).join('')}</div>
+  <div class="card section" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div><b>${canAddToday?'Today is a trading day':'Trading is closed today'}</b><div class="small">${canAddToday?'Add every profit/loss entry for today; future targets recalculate automatically.':('Next trading day: '+(nextRow?nextRow.date:'—'))}</div></div>
+    ${canAddToday?`<button class="btn primary" style="padding:11px 16px" onclick="openPL('${now}')">＋ Add P/L</button>`:`<button class="btn" disabled style="opacity:.65">🔒 P/L unavailable</button>`}
+  </div>
+  <div class="section-head section"><h2>Monthly target table</h2><span class="small">Actual P/L shifts future targets automatically</span></div><div class="months" id="months"></div>`;
+  renderMonths(p);
+}
+function renderMonths(p){
+  const schedule=buildSchedule(p);
+  const calendar=allCalendarDays(p);
+  const tradingDays=calendar.filter(d=>isTradingDay(p,d));
+  const todayDate=today();
+
+  // IMPORTANT: "Achieved till" must compare the current P/L-adjusted
+  // capital against the ORIGINAL target ladder (the targets that existed
+  // before any P/L was entered). Otherwise a profitable day would rebuild the
+  // ladder and incorrectly show the same date as achieved.
+  function originalPlan(){
+    const out=[]; let base=p.start, d=dObj(p.startDate), guard=0;
+    while(base<p.target && guard<5000){
+      const ds=iso(d);
+      if(!p.excluded.includes(d.getDay())){
+        const target=Math.min(p.target,base*(1+p.rate/100));
+        out.push({date:ds,target,base});
+        base=target;
+        if(base>=p.target) break;
+      }
+      d.setDate(d.getDate()+1); guard++;
+    }
+    return out;
+  }
+  const original=originalPlan();
+  const originalTradingDates=original.map(x=>x.date);
+
+  function achievedMilestone(date){
+    const cap=actual(p,date);
+    let idx=-1;
+    for(let i=0;i<original.length;i++){
+      if(original[i].target<=cap+1e-9) idx=i;
+    }
+    if(idx<0)return null;
+    const achievedDate=original[idx].date;
+    const remaining=Math.max(0,originalTradingDates.filter(d=>d>achievedDate).length);
+    return {idx,date:achievedDate,remaining,target:original[idx].target};
+  }
+
+  const days=calendar, groups={};
+  days.forEach(d=>{let k=d.slice(0,7);(groups[k]??=[]).push(d)});
+
+  $('months').innerHTML=Object.entries(groups)
+    .filter(([k,v])=>v.some(d=>d<=todayDate)||v[0]<=firstCompletion(p)||v[0].slice(0,4)<=String(new Date().getFullYear()+1))
+    .map(([k,ds],idx)=>{
+      const [y,m]=k.split('-');
+      const name=new Date(+y,+m-1,1).toLocaleString('en-IN',{month:'long',year:'numeric'});
+
+      const tds=ds.map(date=>{
+        const trading=isTradingDay(p,date);
+        const entries=entriesDate(p,date);
+        const ac=actual(p,date);
+        const target=dateTargetFromCurrent(p,date);
+        const diff=ac-target;
+        const passed=date<todayDate;
+        const activeDate=date===todayDate;
+        const achieved=passed&&trading&&ac>=target-1e-9;
+
+        // The milestone ladder is independent of the current row's dynamically
+        // shifted target. It tells the user exactly how many planned target-days
+        // their actual capital has already covered.
+        const milestone=trading&&date<=todayDate?achievedMilestone(date):null;
+        const achievedHtml=milestone
+          ? `<div class="achieve-box">
+               <div class="achieve-now">✓ Achieved till ${milestone.date}</div>
+               <span class="remaining-chip">${milestone.remaining} trading days remaining</span>
+             </div>`
+          : (date>todayDate
+              ? `<span class="small">—</span>`
+              : `<span class="small">No milestone yet</span>`);
+
+        const pnl=entries.reduce((s,e)=>s+(e.type==='profit'?+e.amount:-e.amount),0);
+        const entryHtml=entries.length
+          ? `<div class="entry-list">${entries.map(e=>`<span class="entry pnl-pill ${e.type==='profit'?'pnl-profit':'pnl-loss'}">${e.type==='profit'?'+':'-'}${money(e.amount,p)} <button class="x" title="Delete entry" onclick="deleteEntry('${e.id}')">×</button></span>`).join('')}</div>`
+          : '—';
+
+        const [st,cl]=statusFor(p,date);
+        // Past dates are locked; today's/future trading days can receive entries.
+        const action=trading&&date===todayDate
+          ? `<button class="btn" style="padding:6px 8px" onclick="openPL('${date}')">+ P/L</button>`
+          : '';
+
+        return `<tr class="${activeDate?'active-date':''} ${achieved?'achieved-date':''}">
+          <td class="date-cell">${date}${activeDate?' <b>• TODAY</b>':''}</td>
+          <td>${trading?money(target,p):'<span class="small">Excluded</span>'}</td>
+          <td>${trading?money(ac,p):'—'}</td>
+          <td>${trading?entryHtml:'—'}</td>
+          <td>${achievedHtml}</td>
+          <td class="${diff>=0?'positive':'negative'}">${trading?(diff>=0?'+':'−')+money(Math.abs(diff),p):'—'}</td>
+          <td><span class="status ${cl}">${trading?st:'Excluded'}</span></td>
+          <td>${action}</td>
+        </tr>`;
+      }).join('');
+
+      return `<div class="month ${idx===0?'open':''}">
+        <div class="month-head">
+          <span>📅 ${name}</span>
+          <button onclick="this.closest('.month').classList.toggle('open')">Expand / Collapse</button>
+        </div>
+        <div class="month-body">
+          <table class="table">
+            <thead><tr>
+              <th>Date</th>
+              <th>Target for date</th>
+              <th>Actual capital</th>
+              <th>P/L entries</th>
+              <th>🎯 Target achieved till</th>
+              <th>Difference</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr></thead>
+            <tbody>${tds}</tbody>
+          </table>
+        </div>
+      </div>`;
+    }).join('');
+}
+function openPL(date){selectedDate=date;$('plDate').textContent=`Date: ${date} • ${active().currency}`;$('plAmount').value='';$('plNote').value='';$('plType').value='profit';$('plModal').classList.add('show')}
+function closePL(){$('plModal').classList.remove('show')}
+function savePL(){
+  const p=active(),amount=+$('plAmount').value;
+  if(selectedDate!==today()){alert('P/L can only be entered for today.');return}
+  if(!p||!amount){alert('Enter a valid amount.');return}
+  p.entries.push({id:crypto.randomUUID(),date:selectedDate,type:$('plType').value,amount,note:$('plNote').value,ts:Date.now()});save();closePL();renderDashboard();toast('P/L saved — future targets recalculated')
+}
+function deleteEntry(id){
+  const p=active(),e=p.entries.find(x=>x.id===id);if(!e)return;
+  if(!confirm(`Delete ${e.type} ${money(e.amount,p)} from ${e.date}?`))return;
+  p.entries=p.entries.filter(x=>x.id!==id);save();renderDashboard();toast('P/L entry deleted')
+}
+let journalEditId=null;
+let journalFilter={range:'overall',month:'',year:'',from:'',to:'',symbol:'',setup:''};
+
+function tradeGross(e){const q=+e.qty||0,b=+e.buy||0,s=+e.sell||0;return e.direction==='Short'?(b-s)*q:(s-b)*q}
+function tradeNet(e){return tradeGross(e)-(+e.brokerage||0)-(+e.charges||0)}
+function openJournal(id=null,date=null){
+  const p=active();if(!p)return;journalEditId=id;const e=id?p.entries.find(x=>x.id===id):null;
+  $('journalTitle').textContent=e?'Edit Trade Journal':'Trade Journal Entry';
+  $('jDate').value=e?.date||date||today();$('jSymbol').value=e?.symbol||'';$('jDirection').value=e?.direction||'Long';
+  $('jQty').value=e?.qty||'';$('jBuy').value=e?.buy??'';$('jSell').value=e?.sell??'';
+  $('jBrokerage').value=e?.brokerage??0;$('jCharges').value=e?.charges??0;$('jSetup').value=e?.setup||'';
+  $('jReason').value=e?.reason||'';$('jMistake').value=e?.mistake||'';$('jNotes').value=e?.notes||e?.note||'';
+  $('journalModal').classList.add('show');
+}
+function closeJournal(){$('journalModal').classList.remove('show');journalEditId=null}
+function saveJournal(){
+  const p=active(),date=$('jDate').value,symbol=$('jSymbol').value.trim(),qty=+$('jQty').value,buy=+$('jBuy').value,sell=+$('jSell').value;
+  if(!p||!date||!symbol||qty<=0||buy<0||sell<0){alert('Please enter date, symbol, quantity, entry price and exit price.');return}
+  const base={direction:$('jDirection').value,qty,buy,sell,brokerage:+$('jBrokerage').value||0,charges:+$('jCharges').value||0};
+  const net=tradeNet(base),obj={id:journalEditId||crypto.randomUUID(),date,symbol,...base,setup:$('jSetup').value.trim(),reason:$('jReason').value.trim(),mistake:$('jMistake').value.trim(),notes:$('jNotes').value.trim(),ts:journalEditId?(p.entries.find(x=>x.id===journalEditId)?.ts||Date.now()):Date.now(),type:net>=0?'profit':'loss',amount:Math.abs(net)};
+  if(journalEditId){const i=p.entries.findIndex(x=>x.id===journalEditId);if(i>=0)p.entries[i]=obj}else p.entries.push(obj);
+  save();closeJournal();renderTrading();toast(journalEditId?'Journal updated':'Journal entry saved');
+}
+function deleteJournal(id){
+  const p=active(),e=p.entries.find(x=>x.id===id);if(!e)return;
+  if(!confirm(`Delete journal entry for ${e.symbol||'trade'} on ${e.date}?`))return;
+  p.entries=p.entries.filter(x=>x.id!==id);save();renderTrading();toast('Journal entry deleted');
+}
+function setJournalRange(v){journalFilter.range=v;renderTrading()}
+function journalEntries(){
+  const p=active();if(!p)return [];let en=[...p.entries],f=journalFilter;
+  if(f.range==='month'&&f.month)en=en.filter(e=>e.date.slice(0,7)===f.month);
+  if(f.range==='year'&&f.year)en=en.filter(e=>e.date.slice(0,4)===f.year);
+  if(f.range==='custom'&&f.from)en=en.filter(e=>e.date>=f.from&&(!f.to||e.date<=f.to));
+  if(f.symbol)en=en.filter(e=>(e.symbol||'').toLowerCase().includes(f.symbol.toLowerCase()));
+  if(f.setup)en=en.filter(e=>(e.setup||'').toLowerCase().includes(f.setup.toLowerCase()));
+  return en.sort((a,b)=>b.date.localeCompare(a.date)||b.ts-a.ts);
+}
+function renderTrading(){
+  const p=active();if(!p){showTab('projects');return}
+  $('topActions').innerHTML=`<button class="btn" onclick="showTab('dashboard')">← Project</button>`;
+  const all=p.entries||[],en=journalEntries(),det=en.filter(e=>e.symbol&&e.qty&&e.buy!==undefined&&e.sell!==undefined);
+  const gross=det.reduce((s,e)=>s+tradeGross(e),0),brokerage=det.reduce((s,e)=>s+(+e.brokerage||0),0),charges=det.reduce((s,e)=>s+(+e.charges||0),0);
+  const net=det.reduce((s,e)=>s+tradeNet(e),0)+en.filter(e=>!e.symbol).reduce((s,e)=>s+(e.type==='profit'?+e.amount:-e.amount),0);
+  const wins=en.filter(e=>e.type==='profit').length,wr=en.length?wins/en.length*100:0;
+  const years=[...new Set(all.map(e=>e.date.slice(0,4)))].sort().reverse(),months=[...new Set(all.map(e=>e.date.slice(0,7)))].sort().reverse();
+  if(journalFilter.range==='month'&&!journalFilter.month)journalFilter.month=months[0]||today().slice(0,7);
+  if(journalFilter.range==='year'&&!journalFilter.year)journalFilter.year=years[0]||today().slice(0,4);
+  const calBase=journalFilter.range==='month'?(journalFilter.month||today().slice(0,7)):(months[0]||today().slice(0,7));
+  const [cy,cm]=calBase.split('-').map(Number),first=new Date(cy,cm-1,1),last=new Date(cy,cm,0),offset=(first.getDay()+6)%7,cells=[];
+  for(let i=0;i<offset;i++)cells.push(null);for(let d=1;d<=last.getDate();d++)cells.push(`${cy}-${String(cm).padStart(2,'0')}-${String(d).padStart(2,'0')}`);while(cells.length%7)cells.push(null);
+  const daily={};en.forEach(e=>{daily[e.date]=(daily[e.date]||0)+(e.type==='profit'?+e.amount:-e.amount)});
+  const stats=[['Net P&L',money(net,p),net>=0?'positive':'negative'],['Gross P&L',money(gross,p),''],['Brokerage',money(brokerage,p),''],['Charges',money(charges,p),''],['Entries',en.length,''],['Win rate',pct(wr),wr>=50?'positive':'warning']];
+  $('trading').innerHTML=`
+  <div class="j-head"><div><div class="label">Trading Journal</div><div class="j-title">${esc(p.name)}</div></div><div class="j-actions"><button class="btn primary" onclick="openJournal()">＋ Add Trade</button><button class="btn" onclick="openPL(today())">＋ Quick P/L</button></div></div>
+  <div class="card"><div class="j-filters">
+    <select onchange="setJournalRange(this.value)"><option value="overall" ${journalFilter.range==='overall'?'selected':''}>Overall</option><option value="month" ${journalFilter.range==='month'?'selected':''}>Month wise</option><option value="year" ${journalFilter.range==='year'?'selected':''}>Year wise</option><option value="custom" ${journalFilter.range==='custom'?'selected':''}>Custom date</option></select>
+    <input placeholder="Filter symbol" value="${esc(journalFilter.symbol)}" oninput="journalFilter.symbol=this.value;renderTrading()">
+    <input placeholder="Filter setup" value="${esc(journalFilter.setup)}" oninput="journalFilter.setup=this.value;renderTrading()">
+    <button class="btn" onclick="journalFilter={range:'overall',month:'',year:'',from:'',to:'',symbol:'',setup:''};renderTrading()">Reset</button>
+  </div><div class="j-filter-row">
+    <select onchange="journalFilter.month=this.value;renderTrading()" ${journalFilter.range==='month'?'':'style="display:none"'}><option value="">Select month</option>${months.map(m=>`<option value="${m}" ${journalFilter.month===m?'selected':''}>${m}</option>`).join('')}</select>
+    <select onchange="journalFilter.year=this.value;renderTrading()" ${journalFilter.range==='year'?'':'style="display:none"'}><option value="">Select year</option>${years.map(y=>`<option value="${y}" ${journalFilter.year===y?'selected':''}>${y}</option>`).join('')}</select>
+    <input type="date" value="${journalFilter.from}" onchange="journalFilter.from=this.value;renderTrading()" ${journalFilter.range==='custom'?'':'style="display:none"'}>
+    <input type="date" value="${journalFilter.to}" onchange="journalFilter.to=this.value;renderTrading()" ${journalFilter.range==='custom'?'':'style="display:none"'}>
+  </div></div>
+  <div class="j-summary">${stats.map(x=>`<div class="card"><div class="label">${x[0]}</div><div class="value ${x[2]}">${x[1]}</div></div>`).join('')}</div>
+  <div class="card cal-card"><div class="cal-head"><b>📅 ${first.toLocaleString('en-IN',{month:'long',year:'numeric'})}</b><span class="small">Tap any day to add a trade</span></div><div class="cal-grid">${['M','T','W','T','F','S','S'].map(x=>`<div class="cal-dow">${x}</div>`).join('')}${cells.map(date=>date?`<div class="cal-day ${(daily[date]||0)>0?'profit':(daily[date]||0)<0?'loss':''} ${date===today()?'today':''}" onclick="openJournal(null,'${date}')"><div class="cal-num">${+date.slice(-2)}</div>${daily[date]?`<div class="cal-pnl ${daily[date]>=0?'positive':'negative'}">${daily[date]>=0?'+':''}${money(daily[date],p)}</div>`:'<div class="small" style="margin-top:8px">—</div>'}</div>`:'<div></div>').join('')}</div></div>
+  <div class="section-head section"><h2>Journal entries</h2><span class="small">${en.length} shown</span></div>
+  <div class="journal-list">${en.length?en.map(e=>{
+    const isTrade=!!e.symbol, n=isTrade?tradeNet(e):(e.type==='profit'?+e.amount:-e.amount);
+    return `<div class="j-entry"><div class="j-entry-top"><div><div class="j-symbol">${esc(e.symbol||'Quick P/L')} <span class="tag">${esc(e.direction||'Manual')}</span></div><div class="small">${e.date}${isTrade?' • Qty '+e.qty:''}</div></div><div class="${n>=0?'positive':'negative'}" style="font-size:17px;font-weight:950">${n>=0?'+':''}${money(n,p)}</div></div>
+    ${isTrade?`<div class="j-meta"><span class="tag">Setup: ${esc(e.setup||'Not specified')}</span><span class="tag">Entry: ${money(e.buy,p)}</span><span class="tag">Exit: ${money(e.sell,p)}</span></div><div class="j-details"><div class="j-detail"><span>Gross P/L</span><b>${money(tradeGross(e),p)}</b></div><div class="j-detail"><span>Brokerage</span><b>${money(e.brokerage,p)}</b></div><div class="j-detail"><span>Charges</span><b>${money(e.charges,p)}</b></div><div class="j-detail"><span>Entry reason</span><b>${esc(e.reason||'—')}</b></div><div class="j-detail"><span>Mistake / lesson</span><b>${esc(e.mistake||'—')}</b></div></div><div class="j-notes"><b>Notes:</b> ${esc(e.notes||'—')}</div>`:`<div class="j-notes">${esc(e.note||'Manual P/L entry')}</div>`}
+    <div class="j-entry-actions">${isTrade?`<button class="btn" onclick="openJournal('${e.id}')">Edit</button>`:''}<button class="btn danger" onclick="deleteJournal('${e.id}')">Delete</button></div></div>`
+  }).join(''):'<div class="card empty">No entries match your filters.</div>'}</div>`;
+}
+renderProjects();
+
+/* ===== REAL PWA INSTALL =====
+   Requires this file to be served over HTTPS (or localhost) alongside
+   manifest.json + service-worker.js in the same folder — not opened
+   directly as a local/content:// file.
+*/
+let deferredInstallPrompt = null;
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+  });
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  const status=document.getElementById('singlePWAStatus');
+  if(status) status.textContent='Ready to install';
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  const status=document.getElementById('singlePWAStatus');
+  if(status) status.textContent='Installed ✓';
+  showToast && showToast('TradeGoal installed');
+});
+
+async function installSingleFilePWA(){
+  const status=document.getElementById('singlePWAStatus');
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone=window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
+
+  if(isStandalone){
+    status.textContent='Already installed';
+    return;
+  }
+
+  if(deferredInstallPrompt){
+    deferredInstallPrompt.prompt();
+    const {outcome} = await deferredInstallPrompt.userChoice;
+    status.textContent = outcome==='accepted' ? 'Installing…' : 'Install dismissed';
+    deferredInstallPrompt = null;
+    return;
+  }
+
+  if(isIOS){
+    status.textContent='Safari: Share → Add to Home Screen';
+    alert('iPhone/iPad: Safari ke Share (↑) button par tap karein → Add to Home Screen → Add.\\n\\niOS par native install button nahi hota, ye tareeka hi standard hai.');
+    return;
+  }
+
+  status.textContent='Install option abhi available nahi';
+  alert('Install button abhi disabled hai kyunki:\\n\\n1) App HTTPS (ya localhost) se serve nahi ho raha, YA\\n2) Ye already install ho chuka hai / recently dismiss kiya gaya hai.\\n\\nBrowser menu (⋮) me "Install app" / "Add to Home screen" try karein.');
+}
+(function(){
+  const status=document.getElementById('singlePWAStatus');
+  if(status && (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true))
+    status.textContent='Installed / standalone mode';
+})();
+
+</script>
+</body>
+</html>
